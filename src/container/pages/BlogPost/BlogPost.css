@@ -1,0 +1,34 @@
+.container{
+    padding: 3px;
+    box-sizing: border-box;
+    margin: 10px auto;
+    border: 2px solid black;
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+}
+
+.container .content{
+    margin-left: 10px;
+}
+
+button{
+    height: 50px;
+}
+.btn{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.form{
+    margin: auto;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form button{
+    margin: auto;
+}

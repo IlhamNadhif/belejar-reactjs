@@ -1,0 +1,13 @@
+.image{
+    width: 300px;
+}
+
+.cont{
+    padding: 20px;
+    display: inline-block;
+}
+
+.duration{
+    background-color: black;
+    color: white;
+}

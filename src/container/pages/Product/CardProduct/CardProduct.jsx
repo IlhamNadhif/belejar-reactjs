@@ -6,7 +6,7 @@ class CardProduct extends Component {
     return (
       <div>
         <h5>Counter</h5>
-        <Counter CounterChange={(value)=>this.props.onCounterChange(value)} />
+        <Counter />
       </div>
     );
   }

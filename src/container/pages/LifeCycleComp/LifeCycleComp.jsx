@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 
 class LifeCycleComp extends Component {
   constructor(props) {
@@ -55,9 +56,17 @@ class LifeCycleComp extends Component {
         <button onClick={this.countChange}>
           Component Button {this.state.count}
         </button>
+        <hr />
+        <p>Total order: {this.props.order}</p>
       </Fragment>
     );
   }
 }
 
-export default LifeCycleComp;
+const mapStateToProps = (state) => {
+  return {
+    order: state.totalOrder
+  }
+}
+
+export default connect(mapStateToProps)(LifeCycleComp);

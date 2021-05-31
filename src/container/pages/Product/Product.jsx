@@ -1,25 +1,32 @@
 import React, { Component, Fragment, Fragmenta } from "react";
+import { connect } from "react-redux";
 import CardProduct from "./CardProduct/CardProduct";
 
 class Product extends Component {
-  state = {
+  /* state = {
     order: 4,
   };
   handleCounter = (newValue) => {
     this.setState({
       order: newValue,
     });
-  };
+  }; */
   render() {
     return (
       <Fragment>
         <p>Halaman Product</p>
         <hr />
-        <h1>{this.state.order}</h1>
-        <CardProduct onCounterChange={(value) => this.handleCounter(value)} />
+        <h1>{this.props.order}</h1>
+        <CardProduct />
       </Fragment>
     );
   }
 }
 
-export default Product;
+const mapStateToProps = (state) => {
+  return {
+    order: state.totalOrder,
+  };
+};
+
+export default connect(mapStateToProps)(Product);

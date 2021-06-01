@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import DetailPost from "../pages/BlogPost/DetailPost/DetailPost";
 import "./Home.css";
 import GlobalProvider from "../../context/context";
+import Hooks from "../pages/Hooks/Hooks";
 
 class Home extends Component {
   render() {
@@ -18,12 +19,14 @@ class Home extends Component {
             <Link to="/product">Product</Link>
             <Link to="/lifecycle">LifeCycle</Link>
             <Link to="/youtube">YouTube</Link>
+            <Link to="/hooks">Hooks</Link>
           </div>
           <Route path="/" exact component={BlogPost} />
           <Route path="/detail-post/:postID" component={DetailPost} />
           <Route path="/product" component={Product} />
           <Route path="/lifecycle" component={LifeCycleComp} />
           <Route path="/youtube" component={YouTubeComp} />
+          <Route path="/hooks" component={Hooks} />
         </Fragment>
       </Router>
     );

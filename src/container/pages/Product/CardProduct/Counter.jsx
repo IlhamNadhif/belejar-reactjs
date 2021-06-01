@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import ActionType from "../../../../redux/reducer/globalActionType";
+import { GlobalConsumer } from "../../../../context/context";
+import { rootContext } from "../../../Home/Home";
 
 class Counter extends Component {
   // state = {
@@ -30,20 +30,23 @@ class Counter extends Component {
     );
   }; */
   render() {
-    console.log(this.props);
     return (
       <div>
-        <button onClick={this.props.handleMinus}>-</button>
+        <button onClick={() => this.props.dispatch({ type: "MINUS_ORDER" })}>
+          -
+        </button>
         <h4 style={{ display: "inline-block", padding: "0px 10px" }}>
-          {this.props.orders}
+          {this.props.state.totalOrder}
         </h4>
-        <button onClick={this.props.handlePluss}>+</button>
+        <button onClick={() => this.props.dispatch({ type: "PLUS_ORDER" })}>
+          +
+        </button>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+/* const mapStateToProps = (state) => {
   return {
     orders: state.totalOrder,
   };
@@ -54,6 +57,7 @@ const mapDispatchToProps = (dispatch) => {
     handlePluss: () => dispatch({ type: ActionType.PLUS_ORDER }),
     handleMinus: () => dispatch({ type: ActionType.MINUS_ORDER }),
   };
-};
+}; */
 
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+// export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default GlobalConsumer(Counter);

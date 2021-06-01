@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, createContext } from "react";
 import YouTubeComp from "../pages/YouTubeCompPage/YouTubeCompPage";
 import Product from "../pages/Product/Product";
 import LifeCycleComp from "../pages/LifeCycleComp/LifeCycleComp";
@@ -6,18 +6,9 @@ import BlogPost from "../pages/BlogPost/BlogPost";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import DetailPost from "../pages/BlogPost/DetailPost/DetailPost";
 import "./Home.css";
+import GlobalProvider from "../../context/context";
 
 class Home extends Component {
-  state = {
-    showComponent: true,
-  };
-  componentDidMount() {
-    /* setTimeout(() => {
-      this.setState({
-        showComponent: false,
-      });
-    }, 4000); */
-  }
   render() {
     return (
       <Router>
@@ -28,23 +19,6 @@ class Home extends Component {
             <Link to="/lifecycle">LifeCycle</Link>
             <Link to="/youtube">YouTube</Link>
           </div>
-          {/* <Switch>
-            <Route path="/" exact>
-              <BlogPost />
-            </Route>
-            <Route path="/detail-post/:id">
-              <DetailPost />
-            </Route>
-            <Route path="/product">
-              <Product />
-            </Route>
-            <Route path="/lifecycle">
-              <LifeCycleComp />
-            </Route>
-            <Route path="/youtube">
-              <YouTubeComp />
-            </Route>
-          </Switch> */}
           <Route path="/" exact component={BlogPost} />
           <Route path="/detail-post/:postID" component={DetailPost} />
           <Route path="/product" component={Product} />
@@ -56,4 +30,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default GlobalProvider(Home);

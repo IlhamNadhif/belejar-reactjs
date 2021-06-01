@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import axios from "axios";
 import Post from "../../../component/Post/Post";
 import "./BlogPost.css";
+import API from "../../../service";
 
 class BlogPost extends Component {
   state = {
@@ -11,43 +12,46 @@ class BlogPost extends Component {
       body: "",
     },
     isUpdate: false,
+    comments: [],
   };
 
-  handleRemove = async (data) => {
-    await axios.delete(`http://localhost:4000/${data}`);
+  handleRemove = async (id) => {
+    await API.deleteNewsBlog(id)
     this.componentDidMount();
   };
   handleFormChange = (event) => {
-    // console.log("event", event);
     let copyformBlogPost = { ...this.state.formBlogPost };
     copyformBlogPost[event.target.name] = event.target.value;
     this.setState({
       formBlogPost: copyformBlogPost,
     });
   };
-  handleSubmit = async () => {
+  handleSubmit = () => {
     if (this.state.isUpdate) {
-      await axios.put(
-        `http://localhost:4000/${this.state.formBlogPost._id}`,
-        this.state.formBlogPost
-      );
-      this.setState({
-        isUpdate: false,
-        formBlogPost: {
-          title: "",
-          body: "",
-        },
+      API.putNewsBlog(
+        this.state.formBlogPost,
+        this.state.formBlogPost._id
+      ).then((res) => {
+        this.setState({
+          isUpdate: false,
+          formBlogPost: {
+            title: "",
+            body: "",
+          },
+        });
+        this.componentDidMount();
       });
     } else {
-      await axios.post("http://localhost:4000/", this.state.formBlogPost);
-      this.setState({
-        formBlogPost: {
-          title: "",
-          body: "",
-        },
+      API.postNewsBlog(this.state.formBlogPost).then((result) => {
+        this.setState({
+          formBlogPost: {
+            title: "",
+            body: "",
+          },
+        });
+        this.componentDidMount();
       });
     }
-    this.componentDidMount();
   };
   handleUpdate = (data) => {
     this.setState({
@@ -56,19 +60,17 @@ class BlogPost extends Component {
     });
   };
   handleDetail = (id) => {
-    this.props.history.push(`/detail-post/${id}`)
+    this.props.history.push(`/detail-post/${id}`);
   };
   componentDidMount() {
-    /* fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => response.json())
-      .then((json) => {
-          this.setState({
-              post: json
-          })
-      }); */
-    axios.get("http://localhost:4000/").then((result) => {
+    API.getNewsBlog().then((result) => {
       this.setState({
-        post: result.data,
+        post: result,
+      });
+    });
+    API.getComment().then((com) => {
+      this.setState({
+        comments: com,
       });
     });
   }
@@ -112,6 +114,14 @@ class BlogPost extends Component {
             />
           );
         })}
+        {/* <h3>Comment</h3>
+        {this.state.comments.map((e) => {
+          return (
+            <p>
+              {e.email} - {e.name}
+            </p>
+          );
+        })} */}
       </Fragment>
     );
   }
